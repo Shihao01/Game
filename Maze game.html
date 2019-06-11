@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="EN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="EN" />
+<title>Project1</title>
+<style type="text/css">
+@import url(css/mg.css);
+</style>
+<script type="text/javascript" src="js/Maze/jquery.js"></script>
+<script type="text/javascript" src="js/Maze/jquery.hotkey.js"></script>
+<script type="text/javascript" src="js/Maze/mg.js"></script>
+<script type="text/javascript" src="js/Maze/msg.js"></script>
+</head>
+
+<body id="sansi-toy-mg">
+<audio autoplay="autoplay"loop="loop">
+<source src="assert/Maze/game1bgm.mp3" type="audio/mpeg">
+</audio>
+<div id="wrapper">
+	<div id="logo">
+		<img src="assert/Home/logo.PNG" alt="Game1" />
+	</div>
+	<div class="info">Game Played time: <span id="count" class="num">-</span> 
+		<p>Rule：start from up-left conner，end at rgiht-down conner</p>
+	</div>
+	<div id="mg" class="mg"></div>
+	<div class="info">
+		<p>hit：use up right down left to move </p>
+	</div>
+	<div id="mg_set">
+		<strong>setting：：</strong>
+		<p>
+			<input type="checkbox" onclick="mark(1, this);" id="mark1" /> <label for="mark1">make passed box as red </label>
+		</p>
+		width：<input type="text" id="mg_width" value="20" size="4" maxlength="3" />
+		height：<input type="text" id="mg_height" value="20" size="4" maxlength="3" />
+		<input type="button" value=" createmap " onclick="new_mg();" />
+	</div>
+	<div id="project_info">
+		<strong>Go next game</strong>
+		
+		<a href="Survival game.html" target="_parent">Push Here</a>To go Survival Game 2</p>
+	</div>
+</div>
+<div id="foot">
+	shizhao Yang 5.2.2019
+</div>
+
+<script type="text/javascript">
+	
+function new_mg() {
+	
+	var w = parseInt(document.getElementById("mg_width").value) || 20,
+		h = parseInt(document.getElementById("mg_height").value) || 20;
+	mg.set({width: w, height: h}).create().show();
+	document.getElementById("mg_width").value = w;
+	document.getElementById("mg_height").value = h;
+//	count();
+}
+
+function count() {
+	$.get("/count/maze/", {
+			r: Math.random()
+		}, function (r) {
+			r = r.replace(/[\r\n\s]/g, "");
+			if (r.match(/^\d+$/))
+				$("#count").html(r);
+		});
+}
+
+function mark(h, ob) {
+	mg.me.setMark(h, ob.checked);
+}
+
+var mg = new MG("mg");
+new_mg();
+
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-307069-13']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+
+</body>
+</html>
